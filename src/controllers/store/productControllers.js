@@ -1,35 +1,48 @@
-const { Product } = require('../../db');
+const { Product, Category, Brand} = require('../../db');
 
 // POST /products
 exports.createProduct = async (req, res) => {
-    try {
-      const {
-        name,
-        description,
-        price,
-        stock,
-        category,
-        brand,
-        image_path
-      } = req.body;
-  
-      // Crear el producto en la base de datos
-      const product = await Product.create({
-        name,
-        description,
-        price,
-        stock,
-        category,
-        brand,
-        image_path
-      });
-  
-      res.status(201).json(product);
-    } catch (error) {
-      console.error('Error creating product:', error);
-      res.status(500).json({ message: 'Server error' });
+  try {
+    const {
+      name,
+      description,
+      price,
+      stock,
+      category,
+      brand,
+      image_path
+    } = req.body;
+
+    // Verificar si la categoría ya existe o crearla
+    let categoryInstance = await Category.findOne({ where: { name: category } });
+    if (!categoryInstance) {
+      categoryInstance = await Category.create({ name: category });
     }
-  };
+
+    // Verificar si la marca ya existe o crearla
+    let brandInstance = await Brand.findOne({ where: { name: brand } });
+    if (!brandInstance) {
+      brandInstance = await Brand.create({ name: brand });
+    }
+
+    // Crear el producto en la base de datos y relacionarlo con la categoría y la marca
+    const product = await Product.create({
+      name,
+      description,
+      brandName: brand,
+      price,
+      stock,
+      image_path,
+      CategoryId: categoryInstance.id, // Asocia el producto con la categoría
+      BrandId: brandInstance.id, // Asocia el producto con la marca
+    });
+
+    res.status(201).json(product);
+  } catch (error) {
+    console.error('Error creating product:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
   
 
   exports.getProductById = async (req, res) => {
