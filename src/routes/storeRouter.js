@@ -1,5 +1,7 @@
 const express = require("express");
-const { getProductById, createProduct, updateProduct, deleteProduct, getProducts } = require("../controllers/store/productControllers");
+const { getProductById, createProduct, updateProduct, deleteProduct, getProducts, getProductsCategory } = require("../controllers/store/productControllers");
+const { getCategories } = require("../controllers/store/categories")
+
 
 const storeRouter = express.Router();
 //ALL PRODUCTS
@@ -7,6 +9,7 @@ const storeRouter = express.Router();
 storeRouter.post("/products", createProduct);
 
 storeRouter.get("/products", getProducts);
+
 
 // Obtener un producto por su ID
 storeRouter.get("/products/:id", getProductById);
@@ -17,5 +20,9 @@ storeRouter.put("/products/:id", updateProduct);
 
 // Eliminar un producto
 storeRouter.delete("/products/:id", deleteProduct);
+
+storeRouter.get("/categories", getCategories)
+
+storeRouter.get("/categories/:id", getProductsCategory)
 
 module.exports = storeRouter;
