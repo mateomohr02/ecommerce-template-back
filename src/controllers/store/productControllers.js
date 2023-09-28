@@ -62,6 +62,23 @@ exports.getProductsCategory = async (req,res) => {
   }
 }
 
+exports.getProductsBrand = async (req,res) => {
+  try {
+    const { id } = req.params
+    
+    const products = await Product.findAll({where: { BrandId: id }})
+    
+    if (products.length === 0) {
+      return res.status(404).json({ message: 'No Products found for the Brand' });
+    }
+    
+    res.status(200).json(products);
+  
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+}
+
 
   exports.getProductById = async (req, res) => {
     const { id } = req.params;

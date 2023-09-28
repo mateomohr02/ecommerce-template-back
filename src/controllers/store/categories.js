@@ -1,4 +1,4 @@
-const { Product, Category, Brand } = require('../../db');
+const {Category} = require('../../db');
 
 exports.getCategories = async (req,res) => {
     try {
