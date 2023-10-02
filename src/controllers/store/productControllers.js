@@ -157,4 +157,23 @@ exports.deleteProduct = async (req, res) => {
       console.log(error);
       res.status(500).json({ message: 'Server error' });
     }
-  }; 
+  };
+  
+  exports.updateProductStatus = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const product = await Product.findByPk(id);
+  
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+  
+      // Actualizar los campos del producto
+      await product.update({ show: !product.show });
+  
+      res.status(200).json(product);
+    } catch (error) {
+      console.error('Error updating product:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
