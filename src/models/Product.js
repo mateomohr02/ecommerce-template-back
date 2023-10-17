@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
         defaultValue: 0,
       },
       image_path: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
   }, {timestamps: false});

@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         allowNull: false,
     },
     image_path: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     }
     
