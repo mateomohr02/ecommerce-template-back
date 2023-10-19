@@ -29,5 +29,5 @@ userService.loginUser = async (email, password) => {
     return { user, token };
   };
 
-  module.exports = userService;
+  module.exports = userService, secretKey;
   

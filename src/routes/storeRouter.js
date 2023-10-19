@@ -3,6 +3,8 @@ const { getProductById, createProduct, updateProduct, deleteProduct, getProducts
 const { getCategories, updateCategoryImage } = require("../controllers/store/categories");
 const { getBrands, updateBrandImage } = require("../controllers/store/brands");
 
+const { authMiddleware } = require("../middlewares/authMiddleware")
+
 
 const storeRouter = express.Router();
 //ALL PRODUCTS
